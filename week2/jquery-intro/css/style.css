@@ -1,0 +1,74 @@
+/* * {
+  border: 1px solid yellow;
+} */
+
+body {
+  background-color: rgb(255, 0, 100);
+   /* #00FF00; */
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/*
+Make all <img> tags on the page have
+a 1px thick solid border whose colour
+is white
+*/
+img {
+  border: 1px solid white;
+}
+
+.special {
+  background-color: darkgoldenrod;
+}
+
+span {
+  border: 1px solid green;
+}
+
+h1, h3 {
+  color: lime;
+}
+
+/*
+Turn off underlining for links
+that appear inside <p> tags
+*/
+p a {
+  text-decoration: none;
+}
+
+#bestDog {
+  /* font-size: 180%; */
+  background-color: red;
+}
+
+#content {
+  width: 70%;
+  /*
+  Percentages are calculated relative to the parent container of the element!
+  (In this case, <body>, the whole window width)
+  */
+
+
+  text-align: center;
+  /* centers the CONTENTS, not the element
+     itself
+  */
+
+  margin: 0 auto;
+  /* centers the whole element relative to
+     its parent
+  */
+}
+
+img#firstBill {
+  transform: rotate(0deg) scale(1.0);
+  filter: hue-rotate(0deg);
+  transition: 5s;
+  /* Animations! */
+}
+
+img#firstBill:hover {
+  transform: rotate(4060deg) scale(3.0);
+  filter: hue-rotate(360deg);
+}

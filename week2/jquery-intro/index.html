@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>My Special Site with All My Thoughts and Feelings On It</title>
+  <meta charset="utf-8">
+
+  <link rel="stylesheet" href="css/style.css">
+
+
+</head>
+
+<body>
+  <h1>Welcome to my Special Website</h1>
+  <h3>Sorry if this is not as thrilling as Javascript...</h3>
+
+  <!-- Create a link that is internal to this document - jumps to the
+       corresponding <a name="op2"> tag -->
+  <p class="special">Jump straight to <a href="#op2">my best opinion.</a></p>
+
+  <p>Here are all my <strong>interesting</strong> thoughts and opinions.</p>
+
+  <img id="firstBill" src="http://www.fillmurray.com/500/300" alt="The actor Bill Murray">
+
+  <img src="http://www.fillmurray.com/300/200" alt="Bill again" title="It's Bill!" style="position: absolute; left: 0; top: 0">
+
+   <p class="special"><em>My Favourite Dogs:</em></p>
+
+   <ul>  <!-- unordered list; this is the container tag -->
+     <li>Ruby</li>  <!-- list item; a single member of the list -->
+     <li>Jess</li>
+     <li id="bestDog" class="special">Nookie</li>
+   </ul>
+
+   <p>Learning to code? Why not <a href="http://ga.co/" target="_blank">study at GA</a>?</p>
+
+
+  <span>Hello.</span>
+  <span>Hello again.</span>
+
+  <div>This will get its own line. <span>(This will not.)</span> </div>
+  <div>So will this.</div>
+
+  <br>
+
+  <span>Here comes a form!</span>
+  <form> <!-- the container element for grouping the different pieces of a form -->
+
+     <input type="text" name="textExample" value="" placeholder="Enter name here">
+
+
+
+     <input type="password" name="seekrit">
+
+     <textarea name="content" id="" cols="30" rows="10" placeholder="nope">
+        Default text goes here.
+        (There is no value="..." attribute.)
+        Another line.
+     </textarea>
+
+     <br>
+
+     <select name="dog"> <!-- dropdown list - this is the container for it -->
+        <option value="" disabled selected>Please select one of the following:</option>
+        <option value="45">Toller</option>
+        <option value="300">Husky</option>
+        <option value="12">Golden Retriever</option>
+     </select>
+
+     <br>
+     <br>
+
+    <fieldset><!-- wrap your list of checkboxes in this for a nicer UI -->
+      <legend>Dog traits: select one or more</legend>
+
+      <label>
+        <input type="checkbox" value="boundy">
+        Lots of bounding around <!-- this text automatically activates the checkbox because they are box children of the label tag -->
+      </label>
+
+      <br>
+
+      <input type="checkbox" value="drooling" id="drool">
+      <label for="drool">Prodigous slobbering</label>
+      <!-- this example requires the id and for attributes to match -->
+
+    </fieldset>
+
+    <br>
+
+    <input type="radio" id="groucho" name="bro">
+    <label for="groucho">Groucho</label>
+    <br>
+    <input type="radio" id="harpo" name="bro">
+    <label for="harpo">Harpo</label>
+    <br>
+    <input type="radio" id="chico" name="bro">
+    <label for="chico">Chico</label>
+    <br>
+
+
+    <input type="submit" value="Submit this form!">
+
+  </form>
+
+  <button>This is just a button that does nothing.</button>
+
+
+   <h4>Forbidden!</h4>
+   <b>Bold tag - use "strong" instead</b> <br>
+   <i>Italicised text - use "em"... or CSS</i> <br>
+   <blink>SO ANNOYING! And now it's gone - but it could be resurrected with JS, or CSS animations.</blink><br>
+   <font size="8pt">Not allowed anymore - use CSS with a "span" or "div"</font><br>
+   <span style="color: red; font-size: 14pt">
+     Some text I want to style - I know, I'll use inline styles.
+     ...<strong>WRONG!</strong>. Use a CSS file.
+   </span>
+
+  <center>This was once used to center text. Use CSS "text-align: center" or "margin: auto" instead.</center>
+
+   <marquee behavior="" direction="down">
+     <img src="http://www.fillmurray.com/400/300" alt="Biiilllll">
+     <br>
+     We can KEEP MARQUEE ALIVE using CSS animations or JS. Yay!
+   </marquee>
+
+  <hr> <!-- horizontal rule, a kind of separator -->
+
+
+  <blockquote>
+    <a href="nothing.com">Your one-stop nihilsm shop.</a>
+    Brandname &copy; <br> <!-- HTML entity for copyright symbol -->
+    Less than &lt; <br>
+    Greater than &gt; <br>
+    Ampersand &amp; <br>
+    This & might work. <br>
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi repellendus error ullam porro, amet itaque. Mollitia corporis sapiente eligendi iure eaque libero sit ipsa qui, consectetur culpa in a totam!
+    Hello?
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem porro, praesentium deleniti illum enim culpa laboriosam amet, doloribus voluptatum. Quasi necessitatibus suscipit nihil tempore dolorem ut nesciunt saepe minima nisi!
+  </blockquote>
+
+
+  <pre> <!-- preformatted text -->
+    This line.
+    Will be separate.
+    From this line.
+    And spaces.....                    are also honoured.
+  </pre>
+
+
+  This is for code: <code>const x = 5;</code> for example.
+
+
+  <table>  <!-- for tabular data, i.e. rows and columns of numbers -->
+
+    <thead>
+      <tr>
+        <td>Brother</td>
+        <td>Instrument</td>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td>Groucho</td>
+        <td>Guitar</td>
+      </tr>
+      <tr>
+        <td>Harpo</td>
+        <td>Harp</td>
+      </tr>
+      <tr>
+        <td>Chico</td>
+        <td>Flute</td>
+      </tr>
+    </tbody>
+
+  </table>
+
+  <div id="content">
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur corporis, ipsam quis animi accusantium, possimus ratione quam vel in similique vitae. Nulla dignissimos dolores neque assumenda aspernatur animi sunt suscipit?</p>
+
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero odit obcaecati voluptatum deserunt, quidem officia iste earum quos reiciendis repellendus, vero quia ullam neque enim quibusdam, incidunt minima asperiores, eaque.</p>
+
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed, ullam, dolorem facere accusantium non animi voluptates, <br>
+      quisquam aspernatur vel deleniti incidunt, provident ex. Consequatur corporis nulla in dicta consectetur similique.</p>
+
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero odit obcaecati voluptatum deserunt, quidem officia iste earum quos reiciendis repellendus, vero quia ullam neque enim quibusdam, incidunt minima asperiores, eaque.</p>
+
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed, ullam, dolorem facere accusantium non animi voluptates, <br>
+      quisquam aspernatur vel deleniti incidunt, provident ex. Consequatur corporis nulla in dicta consectetur similique.</p>
+  </div>
+
+  Opinion number one.<br/>
+  <!-- self-closing tag: the closing / is at the end of the opening (only) tag -->
+
+  <br>
+  <!--
+    Don't do this
+  -->
+  <br>
+  <br>
+  <br>
+
+  <a name="op2"></a> <!-- create an anchor which can be jumped to -->
+  Opinion number two.
+
+   <!--
+        We need to run our JS *after* the rest of the page is loaded,
+        if we want to query the DOM
+   -->
+
+
+  <script src="js/jquery.js"></script>
+  <script src="js/main.js"></script>
+
+  <!-- <script src="js/events.js"></script> -->
+</body>
+
+</html>
