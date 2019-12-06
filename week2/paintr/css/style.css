@@ -1,0 +1,9 @@
+body {
+  background-color: black;
+  margin: 0;
+}
+
+.blob {
+  position: absolute;
+  border-radius: 50%; /* Turns a square DIV into a nice circle */
+}
