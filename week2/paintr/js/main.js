@@ -6,7 +6,7 @@ let lastX = 0; // keep track of the last mouse X position
 const createBlob = function( x, y ){
 
   // Make a DIV to add to the page, giving it the position of the mouse
-  const $blob = $('<div class="blob">');
+  const $blob = $('<div class="blob zoom">');
 
 
   const xVelocity = Math.abs(x - lastX);
@@ -15,7 +15,7 @@ const createBlob = function( x, y ){
 
   // Valid hue values are 0 - 360, but it will be wrapped back to 0 for us when
   // it reaches 360
-  const colour = `hsla(${ hue }, 100%, 50%, 50% )`;
+  const colour = `hsla(${ hue }, 100%, 50%, 20% )`;
 
   hue += 10;  // hue = hue + 1;
 
@@ -27,32 +27,25 @@ const createBlob = function( x, y ){
     backgroundColor: colour,
     width: size + 'px',
     height: size + 'px',
+    // transform: 'scale(1)'
     // border: '1px solid white'
   });
 
   $('body').append( $blob );   // attach to the DOM
 
-  if( Math.random() > 0.5 ){
-
-    $blob.animate({
-      top: window.innerHeight
-    }, 1000, function(){
-      $blob.remove();
-    }
-  );
-
-  } else {
-
-    $blob.animate({
-      top: 0
-    }, 1000, function(){
-      $blob.remove();
-    }
-  );
-  }
+  // Turning this off for now, in favor of CSS transform:scale() animations (they zoom from center)
+  // let topLimit = 1000;
+  // if( Math.random() > 0.5 ){
+  //   topLimit = window.innerHeight * 4; // randomly 50% move up, 50% move down
+  // }
+  //
+  // $blob.animate( { width: topLimit, height: topLimit, transform: 'scale(30)' }, 1000, function(){
+  //   $blob.remove();
+  // });
 
 
 };
+
 
 $(document).ready( function(){
 

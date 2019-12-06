@@ -6,4 +6,20 @@ body {
 .blob {
   position: absolute;
   border-radius: 50%; /* Turns a square DIV into a nice circle */
+
+  animation: zoom 3s;
+  animation-direction: alternate;
+  animation-iteration-count: infinite;
+}
+
+@keyframes zoom {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(20);
+    opacity: 0.2;
+  }
+
 }
