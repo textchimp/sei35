@@ -4,20 +4,6 @@
 // console.log('withdraw button', $('#checkingWithdraw') );
 //
 
-// What a bank object might look like...
-const bank = {
-  balances: {
-    checking: 0,
-    savings: 0
-  },
-
-  deposit: function(accountType, amount){
-  },
-
-  withdraw: function(accountType, amount){
-  }
-
-};
 
 // The variables for storing the bank balances
 let checkingBalance = 100;
