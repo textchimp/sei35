@@ -1,0 +1,23 @@
+
+<h2>All Animals</h2>
+
+<ul>
+
+  <% @results.each do |animal| %>
+
+    <li>
+      <%#
+        Construct a URL like /animals/20
+        using the id from the table row.
+        To do this we need ERB tags INSIDE
+        the href="" attribute of this <a> tag.
+      %>
+      <a href="/animals/<%= animal['id']  %>">
+        <%# The clickable text is the name %>
+        <%= animal['name'] %>
+      </a>
+    </li>
+
+  <% end %>
+
+</ul>
