@@ -26,8 +26,12 @@ end
 # From now on we can run queries on our 'animals' table by calling methods
 # on the Animal class.
 class Animal < ActiveRecord::Base
+  has_many :spotters    # this assumes 'animal_id' is defined in the 'spotters' table
 end
 
+class Spotter < ActiveRecord::Base
+  belongs_to :animal   # as above, assumes 'animal_id' is defined in 'spotters' table
+end
 
 # Test the ActiveRecord connection without needing to load URLs in the browser
 # binding.pry

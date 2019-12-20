@@ -44,4 +44,17 @@
 
 </p>
 
+<p>
+  <strong>Spotters:</strong>
+  <ul>
+    <% @animal.spotters.each do |spotter| %>
+      <li>
+        <%= spotter.name %> (<%= spotter.location %>)
+      </li>
+    <% end %>
+  </ul>
+</p>
+
+
+
 <img src="<%= @animal['image_url'] %>" alt="<%= @animal['name'] %>">
