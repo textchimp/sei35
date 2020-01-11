@@ -1,0 +1,21 @@
+<h2>All Artists</h2>
+
+<ul>
+<% @artists.each do |artist| %>
+  <li>
+    <!-- show page URL is /artists/:id  -->
+
+    <!-- using the Rails <A> tag helper: -->
+    <%= link_to artist.name, artist_path(artist.id) %>
+    (<%= artist.nationality %>)
+
+    <!--
+    <a href="<%= artist_path(artist.id)  %>">
+      <%= artist.name %>
+    </a>
+    (<%= artist.nationality %>)
+    -->
+
+  </li>
+<% end %>
+</ul>

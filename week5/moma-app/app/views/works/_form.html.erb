@@ -1,0 +1,21 @@
+
+<%= form_for @work do |f| %>
+
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+
+  <%= f.label :year %>
+  <%= f.text_field :year %>
+
+
+  <%= f.label :artist_id %>
+
+  <select name="work[artist_id]">
+  <% Artist.all.each do |artist| %>
+    <option value="<%= artist.id %>"><%= artist.name %></option>
+  <% end %>
+  </select>
+
+  <%= f.submit %>
+
+<% end %>
