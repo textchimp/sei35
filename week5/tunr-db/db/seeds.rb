@@ -99,7 +99,7 @@ puts "The mixtape '#{ m1.name }' contains these songs: #{ m1.songs.pluck(:title)
 
 User.destroy_all
 
-u1 = User.create! name: 'Luke', email: 'luke@ga.co', password: 'chicken'
+u1 = User.create! name: 'Luke', email: 'luke@ga.co', password: 'chicken', admin: true
 u2 = User.create! name: 'Mikaela', email: 'mikki@ga.co', password: 'chicken'
 u3 = User.create! name: 'Nookie', email: 'nooknook@ga.co', password: 'chicken'
 

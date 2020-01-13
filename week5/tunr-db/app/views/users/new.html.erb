@@ -1,10 +1,9 @@
 <h2>Create New Account</h2>
 
-<!-- could also just use @user.errors.full_messages here -->
-<% if flash[:errors] %>
+<% if @user.errors.any? %>
   <p>Please correct the following errors:</p>
   <ul>
-    <% flash[:errors].each do |e| %>
+    <% @user.errors.full_messages.each do |e| %>
       <li><%= e %></li>
     <% end %>
   </ul>

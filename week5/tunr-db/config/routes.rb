@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   post '/login'   => 'session#create'  # form submit, check credentials, create session
   delete '/login' => 'session#destroy' # logout (delete session)
 
-  resources :users,  except: [ :index ]
+  resources :users
+
+  resources :mixtapes
 
 end

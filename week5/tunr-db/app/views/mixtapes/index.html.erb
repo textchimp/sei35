@@ -1,0 +1,15 @@
+<h2>All Mixtapes</h2>
+
+<ul>
+<% @mixtapes.each do |mixtape| %>
+  <li>
+    <%= link_to mixtape.name, mixtape_path(mixtape.id) %>
+
+    <!-- You only see an edit link for mixtapes you have created -->
+    <% if mixtape.user == @current_user %>
+      (<%= link_to 'edit', edit_mixtape_path(mixtape.id) %>)
+    <% end %>
+
+  </li>
+<% end %>
+</ul>

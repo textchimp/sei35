@@ -17,6 +17,9 @@
       <nav>
         <% if @current_user.present? %>
           Welcome, <%= @current_user.name %>
+          <% if @current_user.admin? %>
+            (admin)
+          <% end %>
           |
           <%= link_to 'Logout', login_path, method: 'delete' %>
         <% else %>
