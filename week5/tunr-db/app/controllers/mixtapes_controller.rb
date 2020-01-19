@@ -16,6 +16,11 @@ class MixtapesController < ApplicationController
     # @current_user.mixtapes << mixtape
 
     # 3.
+    # mixtape = Mixtape.new mixtape_params   # or name: params[:mixtape][:name]
+    # mixtape.user = @current_user
+    # mixtape.save
+
+    # 4.
     @current_user.mixtapes.create name: params[:mixtape][:name]
 
     redirect_to mixtapes_path  # index of mixtapes
@@ -39,9 +44,16 @@ class MixtapesController < ApplicationController
   def update
     @mixtape = Mixtape.find params[:id]
 
+    # can't use the 'check_ownership' method here because the
+    # 'return' it uses will return from that method, and not
+    # return from this controller action, i.e. it won't stop
+    # the mixtape from being updated even when it's the wrong user
+    # (this is because redirect_to DOES NOT STOP THE REST OF
+    # THE CODE IN A METHOD FROM RUNNING)
     redirect_to login_path and return unless @mixtape.user == @current_user
 
-    puts "**************** UPDATED MIXTAPE ****************"
+    @mixtape.update name: params[:mixtape][:name]
+
     redirect_to mixtape_path(@mixtape.id)
   end
 

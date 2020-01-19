@@ -6,7 +6,6 @@ Rails.application.routes.draw do
   delete '/login' => 'session#destroy' # logout (delete session)
 
   resources :users
-
   resources :mixtapes
 
 end

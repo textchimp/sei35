@@ -13,6 +13,11 @@
 
   <%= f.label :name %>
   <%= f.text_field :name %>
+
+  <%= @user.errors[:name].join(', ') %>
+  <%# Make custom method for this in app/helpers/application_helper.rb %>
+  <%# https://stackoverflow.com/a/23932345 %>
+
   <br>
 
   <%= f.label :email %>
