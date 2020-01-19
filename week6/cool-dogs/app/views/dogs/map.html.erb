@@ -1,0 +1,56 @@
+
+<h1>Cool Dogs Near Me</h1>
+
+<style>
+  #map {
+    height: 100vh;
+  }
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+</style>
+
+<div id="map"></div>
+
+
+<script>
+
+  // Turn Ruby array of objects into JS data by calling .to_json
+  const dogs = <%= @dogs.to_json.html_safe %>;
+
+  function initMap() {
+    // var myLatLng = {lat: -25.363, lng: 131.044};  // Uluru coordinates
+
+    // create a bounding box object
+    var bounds = new google.maps.LatLngBounds();
+
+    var map = new google.maps.Map(document.getElementById('map'), {
+      // zoom: 12,
+      // center:  { lat: dogs[0].latitude, lng: dogs[0].longitude }
+    });
+
+  for( let i = 0; i < dogs.length; i++ ){
+
+    const dog = dogs[i];  // get the current item
+
+    var marker = new google.maps.Marker({
+      position: { lat: dog.latitude, lng: dog.longitude },
+      map: map,
+      title: dog.name
+    });
+
+    // add the latest marker to the bounding box
+    bounds.extend( marker.position );
+
+  } // for
+
+  map.fitBounds( bounds );   // make the map fit within the box containing markers
+
+} // initMap()
+</script>
+
+<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=YOU-GMAPS-API-KEY-HERE&callback=initMap">
+</script>
