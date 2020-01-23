@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Welcome to Vue!</title>
+  <style>
+    .error {
+      border: 2px solid red;
+    }
+    .allGood {
+      border: 1px solid green;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Welcome to Vue</h1>
+  <hr>
+
+  <div id="app">
+
+    The message: {{ message }}
+
+    <br>
+
+    <h3>Good Dogs</h3>
+    <ul>
+      <li v-for="dog in dogs">
+         <dogs-form :title="dog.name" :roundness="dog.roundness"></dogs-form>
+      </li>
+    </ul>
+
+    Dog form: <br>
+    <dogs-form title="Dog 1" roundness="4"></dogs-form>
+    <dogs-form title="Dog 2" roundness="10"></dogs-form>
+
+    <h3>Todo List</h3>
+    <ol>
+      <li v-for="todo in todoList">
+        {{ todo.text }}
+      </li>
+    </ol>
+
+    <p>Two-way binding:</p>
+    <input type="text" v-model="message">
+
+
+    <span v-bind:title="loadTime">
+      Hover your mouse here!
+    </span>
+
+    <button v-on:click="reverseMessage">
+      Click me!
+    </button>
+
+    <br><br>
+
+   <div v-if="canSee" :class="errorStatus">
+     Can you see me?
+   </div>
+
+  </div><!-- #app -->
+
+
+  <script src="js/vue.js"></script>
+  <script src="js/jquery.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

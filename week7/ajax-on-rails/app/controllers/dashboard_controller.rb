@@ -4,7 +4,10 @@ class DashboardController < ApplicationController
   end
 
   def dogs_index
-    # AJAX version ONLY
+    # Add CORS header for access via Vue app
+    headers['Access-Control-Allow-Origin'] = '*'
+
+    # AJAX version ONLY, no respond_to
     render json: Dog.all
   end
 
