@@ -50,7 +50,7 @@ class ProceduresSearch extends React.Component {
           results.map( r => (
             <li key={ r.name }>
               { r.name } (${ r.cost })
-            </li> 
+            </li>
           ))
 
           // results.map( function( r ){
