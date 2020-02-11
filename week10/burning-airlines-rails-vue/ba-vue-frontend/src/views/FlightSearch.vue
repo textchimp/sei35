@@ -4,7 +4,6 @@
 
   <div class="searchForm">
 
-     {{ origin }}
       <!-- <input type="text" v-model="origin"> -->
 
       <label for="">Origin:</label>
@@ -47,8 +46,8 @@ export default {
   // The state for this component:
   data(){
     return {
-      origin: '',
-      destination: ''
+      origin: 'SYD',
+      destination: 'SIN'
     };
   },
   methods: {

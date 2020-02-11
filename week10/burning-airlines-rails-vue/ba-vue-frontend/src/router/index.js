@@ -20,6 +20,8 @@ const routes = [
     name: 'SearchResults',
     component: FlightSearchResults,
     props: true  // make the URL symbols available to the component as props
+    // So we don't have to say this.$route.params.origin
+    // We can just say this.origin (in React this.props.origin, this.state.____)
   },
   {
     path: '/flights/:id',

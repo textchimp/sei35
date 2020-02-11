@@ -6,6 +6,16 @@ class FlightsController < ApplicationController
 
   def show
     # render flight by ID, include reservations, include airplane rows & cols
+
+    flight = Flight.find params[:id]
+
+    # sleep 2
+
+    render json: flight, include: {
+      reservations: {},
+      airplane: { only: [:name, :rows, :cols] }
+    }
+
   end
 
   def search
@@ -14,7 +24,13 @@ class FlightsController < ApplicationController
       destination: params[:destination]
     )
 
-    render json: results, include: { airplane: { only: [:name] } }, except: [ :created_at, :udpated_at ]
+    # sleep 3  # Fake a slow network connection
+
+    render json: results, include: {
+      airplane: { only: [:name] }
+    },
+    except: [ :created_at, :udpated_at ],
+    methods: [ :departure_date_formatted ]  # include the result of running these methods
 
   end
 
