@@ -45,13 +45,15 @@ export default {
       // return Math.random() > 0.5 ? 'occupied' : 'free';
       // let found = false;
 
-      this.flight.reservations.forEach( r => {
-        if( r.row === row && r.col === col ){
-          // found = true;
-          return found ? 'occupied' : 'free' ;
-        }
-      });
+      // this.flight.reservations.forEach( r => {
+      //   if( r.row === row && r.col === col ){
+      //     found = true;
+      //   }
+      // });
+      //
 
+      const found = this.flight.reservations.some( r => r.row === row && r.col === col );
+      return found ? 'occupied' : 'free' ;
     }
   },
   // Filters are like Rails template helpers, intended just for transforming text in your template
