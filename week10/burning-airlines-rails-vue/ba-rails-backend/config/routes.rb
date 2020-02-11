@@ -5,4 +5,6 @@ Rails.application.routes.draw do
 
   get '/flights/search/:origin/:destination' => 'flights#search'
 
+  post '/reservations' => 'reservations#create'
+
 end
