@@ -45,6 +45,8 @@ export default {
   data(){
     return {
       flight: {},
+      reservations: {},
+      user_reservations: {},
       seat: {
         row: 0,
         col: 0
@@ -55,7 +57,11 @@ export default {
   mounted(){
     // Load the details for this flight ID
     axios.get(`http://localhost:3000/flights/${ this.id }`)
-      .then(  res => this.flight = res.data )
+      .then(  res => {
+        this.flight = res.data.flight;
+        this.reservations = res.data.reservations;
+        this.user_reservations = res.data.user_reservations;
+      })
       .catch( err => console.warn('Error loading flight', err) );
   },
   methods: {
@@ -65,9 +71,11 @@ export default {
 
       // Add to the list of reservations for this
       // flight in state, so it will appear as
-      // booked by us immediately in the seating
+      // ours immediately in the seating
       // diagram
-      this.flight.reservations.push( reservation );
+
+      // this.flight.reservations.push( reservation );
+      this.user_reservations[`${reservation.row}-${reservation.col}`] = 1;
 
       // Stop the ReservationConfirm component
       // from appearing, and stop the selected
@@ -91,23 +99,35 @@ export default {
       // const found = this.flight.reservations.some( r => r.row === row && r.col === col );
       // return found ? 'occupied' : 'free' ;
 
-      for( let i = 0; i < this.flight.reservations.length; i++ ){
-        const r = this.flight.reservations[i];
+      const seatKey = `${row}-${col}`;
 
-        // Does the seat we are currently checking correspond to this reservation 'r'?
-        if( r.row === row && r.col === col ){
+      if( seatKey in this.user_reservations ){
+        return 'booked';
+      } else if( seatKey in this.reservations ){
+        return 'occupied';
+      } else {
+        return 'free';
+      }
 
-          // if( r.user_id === FAKE_CURRENT_USER_ID ){
-          //   return 'booked';  // This reservation belongs to the logged-in user
-          // } else {
-          //   return 'occupied'; // Some rando has booked this seat
-          // }
-          return r.user_id === FAKE_CURRENT_USER_ID ? 'booked' : 'occupied';
 
-        }
-      } // for
+      // for( let i = 0; i < this.flight.reservations.length; i++ ){
+      //   const r = this.flight.reservations[i];
+      //
+      //   // Does the seat we are currently checking correspond to this reservation 'r'?
+      //   if( r.row === row && r.col === col ){
+      //
+      //     // if( r.user_id === FAKE_CURRENT_USER_ID ){
+      //     //   return 'booked';  // This reservation belongs to the logged-in user
+      //     // } else {
+      //     //   return 'occupied'; // Some rando has booked this seat
+      //     // }
+      //     return r.user_id === FAKE_CURRENT_USER_ID ? 'booked' : 'occupied';
+      //
+      //   }
+      // } // for
+      //
+      // return 'free';
 
-      return 'free';
     }, // seatStatus
 
     selectSeat(row, col){

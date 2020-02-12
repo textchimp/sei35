@@ -1,2 +1,4 @@
 
-const x = 2;
+function x(){
+
+}

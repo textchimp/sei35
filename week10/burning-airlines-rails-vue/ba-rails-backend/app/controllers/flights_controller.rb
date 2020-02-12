@@ -11,10 +11,32 @@ class FlightsController < ApplicationController
 
     # sleep 2
 
-    render json: flight, include: {
-      reservations: {},
-      airplane: { only: [:name, :rows, :cols] }
-    }
+
+    # Create a hash whose keys look like 'row-col' with a value of true for
+    # each booked seat
+    # reservations = ....
+    reservations_lookup = {}
+    user_reservations_lookup = {}
+
+    fake_current_user_id = 16   # use current_user in a real system with working auth
+
+    flight.reservations.each do |res|
+      if res.user_id == fake_current_user_id
+        user_reservations_lookup["#{res.row}-#{res.col}"] = 1
+      else
+        reservations_lookup["#{res.row}-#{res.col}"] = 1
+      end
+    end # each
+
+    render json: {
+        flight: flight,
+        reservations: reservations_lookup,
+        user_reservations: user_reservations_lookup
+      },
+      include: {
+        # reservations: {},
+        airplane: { only: [:name, :rows, :cols] }
+      }
 
   end
 

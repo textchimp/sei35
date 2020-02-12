@@ -5,9 +5,9 @@
     {{ selectedSeat.row }}{{ selectedSeat.col | toSeatLetter }}
   </div>
 
-  <div class="confirm" @click="confirmSeat">
+  <button class="confirm" @click="confirmSeat">
     Confirm Seat
-  </div>
+  </button>
 
 </div>
 </template>
@@ -23,7 +23,7 @@ export default {
       return String.fromCharCode( 64 + num );
     }
   },
-  
+
   methods: {
     confirmSeat(){
       console.log('CONFIRM!');
@@ -58,7 +58,8 @@ export default {
   background-color: green;
   color: white;
   border-radius: 10px;
-  padding: 10px;
+  padding: 14px;
+  line-height: 20px;
   border: 1px solid grey;
   box-shadow: 5px 5px 10px grey;
   cursor: pointer;
