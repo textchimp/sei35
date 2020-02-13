@@ -13,7 +13,8 @@
 </template>
 
 <script>
-import axios from 'axios';
+// import axios from 'axios';
+import ajax from '@/lib/ajax';
 
 export default {
   name: 'ReservationConfirm',
@@ -27,12 +28,13 @@ export default {
   methods: {
     confirmSeat(){
       console.log('CONFIRM!');
-      axios.post('http://localhost:3000/reservations', {
-          row: this.selectedSeat.row,
-          col: this.selectedSeat.col,
-          user_id: this.userID, // DO NOT DO THIS! Use current_user or similar on the backend
-          flight_id: this.flightID
-        })
+      // axios.post('http://localhost:3000/reservations', {
+      //     row: this.selectedSeat.row,
+      //     col: this.selectedSeat.col,
+      //     user_id: this.userID, // DO NOT DO THIS! Use current_user or similar on the backend
+      //     flight_id: this.flightID
+      //   })
+      ajax.createReservation(this.selectedSeat.row, this.selectedSeat.col, this.flightID, this.userID)
         .then(  res => {
           console.log('response', res);
           this.$emit( 'seatConfirmed', res.data );

@@ -3,6 +3,11 @@
 
   <h1>Flight {{ flight.flight_number }}</h1>
 
+  <div class="confirmationMessage" v-if="showConfirmationMessage.row">
+    Your reservation was booked successfully.<br>
+    Your seat is {{ showConfirmationMessage.row }}{{ showConfirmationMessage.col | toSeatLetter }}
+  </div>
+
   <ReservationConfirm
     v-if="seat.row && seat.col"
     :selectedSeat="seat"
@@ -13,7 +18,7 @@
 
   <div class="seating" v-if="flight.airplane">
 
-    <div class="planeRow" v-for="row in flight.airplane.rows">
+    <div class="planeRow" v-for="row in flight.airplane.rows" :key="row">
       {{ row }}
       <div class="seat"
         :class="[ seatStatus(row, col), selectedSeat(row, col) ]"
@@ -31,7 +36,9 @@
 </template>
 
 <script>
-import axios from 'axios';
+// import axios from 'axios';
+import ajax from '@/lib/ajax';
+
 import ReservationConfirm from '@/components/ReservationConfirm.vue';
 
 const FAKE_CURRENT_USER_ID = 16; // TODO: implement login system with knock/jwt
@@ -47,6 +54,7 @@ export default {
       flight: {},
       reservations: {},
       user_reservations: {},
+      showConfirmationMessage: {},
       seat: {
         row: 0,
         col: 0
@@ -54,17 +62,26 @@ export default {
       userID: FAKE_CURRENT_USER_ID
     };
   },
+
   mounted(){
-    // Load the details for this flight ID
-    axios.get(`http://localhost:3000/flights/${ this.id }`)
-      .then(  res => {
-        this.flight = res.data.flight;
-        this.reservations = res.data.reservations;
-        this.user_reservations = res.data.user_reservations;
-      })
-      .catch( err => console.warn('Error loading flight', err) );
+    this.getFlightDetails(); // Load initial data
+    window.setInterval( this.getFlightDetails, 2000 ); // Poll the server to show live reservation updates
   },
+
   methods: {
+
+    getFlightDetails(){
+      // Load the details for this flight ID
+      // axios.get(`http://localhost:3000/flights/${ this.id }`)
+      ajax.getFlightDetails( this.id )
+        .then( res => {
+          this.flight = res.data.flight;
+          this.reservations = res.data.reservations;
+          this.user_reservations = res.data.user_reservations;
+        })
+        .catch( err => console.warn('Error loading flight', err) );
+
+    },
 
     seatBooked( reservation ){
       console.log('new reservation', reservation);
@@ -81,6 +98,9 @@ export default {
       // from appearing, and stop the selected
       // seat from appearing green
       this.seat = { row: 0, col: 0 };
+
+      this.showConfirmationMessage = { row: reservation.row, col: reservation.col };
+
     },
 
     seatStatus(row, col){
@@ -148,6 +168,8 @@ export default {
       // this.seat.col = col;
       this.seat = { row, col };  // short for { row: row, col: col }
 
+      this.showConfirmationMessage = {}; // Stop the previous confirmation message from appearing
+
     }, // selectSeat()
 
     selectedSeat(row, col){
@@ -166,6 +188,12 @@ export default {
 </script>
 
 <style lang="css" scoped>
+
+  .confirmationMessage {
+    margin: 20px;
+    font-weight: bold;
+    color: orange;
+  }
 
   .selected {
     background-color: rgb(100, 255, 37);
