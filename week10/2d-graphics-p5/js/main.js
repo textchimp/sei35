@@ -108,7 +108,8 @@ function draw(){
       vx: vx,
       vy: vy,
       size: vx + 20,
-      hue: frameCount % 255
+      hue: frameCount % 255,
+      createdFrameCount: frameCount
     });
   } // pressed
 
@@ -123,10 +124,6 @@ function updateParticles(){
     const p = particles[i];
 
 
-
-    // Update the particle position by adding the velocity values to it
-    p.x += p.vx * controls.velocityScale;
-    p.y += p.vy * controls.velocityScale;
 
     if( controls.edgeMode === 'bounce' ){
       // bounce off edges
@@ -160,17 +157,32 @@ function updateParticles(){
 
       const distance = Math.sqrt( xDist*xDist + yDist*yDist );
 
-      if( distance < controls.distanceThreshold ){
+      // if( distance < controls.distanceThreshold ){
+      //  (frameCount - p.createdFrameCount) > 100 &&
+      if( other.lastCollisionWith !== i &&  distance < (p.size/2 + other.size/2) ){
+        p.x *= -1; p.y *= -1;
+        other.x *= -1; other.y *= -1;
+
+        // push them away a bit!
+        p.x += p.vx * controls.velocityScale;
+        p.y += p.vy * controls.velocityScale;
+        p.lastCollisionWith = j;
+      }
 
          // The opacity of the line is 'inversely proportional' to the distance between
          // the particles, i.e. the closer they are, the more opaque (less transparent) it is
-        const alpha = map( distance, 0, controls.distanceThreshold, 255, 0 );
+         //
+         // const alpha = map( distance, 0, controls.distanceThreshold, 255, 0 );
+         // stroke( p.hue, 255, 255, alpha );
+         // line( p.x, p.y,  other.x, other.y );
 
-        stroke( p.hue, 255, 255, alpha );
-        line( p.x, p.y,  other.x, other.y );
-      }
+      // }
 
     } // inner for
+
+    // Update the particle position by adding the velocity values to it
+    p.x += p.vx * controls.velocityScale;
+    p.y += p.vy * controls.velocityScale;
 
 
 

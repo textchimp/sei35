@@ -13,11 +13,14 @@ billImage.src = 'http://placebear.com/300/300';
 
 
 const bestDogItem = document.getElementById( 'bestDog' ) ;
+const bestDogItem = document.getElementById( 'bestDog' ) ;
+const bestDogItem = document.getElementById( 'bestDog' ) ;
+const bestDogItem = document.getElementById( 'bestDog' ) ;
+const bestDogItem = document.getElementById( 'bestDog' ) ;
 
 console.log( 'best dog:', bestDogItem );
 
 // Change the *contents* of this tag (the stuff inside the tags)
-bestDogItem.innerHTML = '<strong>Ruby</strong>';
 
 
 // get all paragraph tags and print their contents
@@ -25,6 +28,7 @@ bestDogItem.innerHTML = '<strong>Ruby</strong>';
 // const pTags = document.getElementsByTagName( 'li' );
 const pTags = document.querySelectorAll( 'p' );
 
+bestDogItem.innerHTML = '<strong>Ruby</strong>';
 
 
 // Actually attach our new detached DOM node to the DOM (making it visible)
@@ -41,8 +45,9 @@ for( let i = 0; i < pTags.length; i++ ){
   p.style.backgroundColor  = 'darkgoldenrod';
 
 
+
   // Create a brand new DOM node (currently detached from page, just in JS memory)
-  const newBillImage = document.createElement( 'img' );
+  let newBillImage = document.createElement( 'img' );
 
   // Set some attributes of the object
   newBillImage.src = 'http://www.fillmurray.com/400/400';
