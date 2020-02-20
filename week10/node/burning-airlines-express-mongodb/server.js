@@ -9,6 +9,155 @@ app.use( cors() );  // Use cors package as middleware, i.e. add the CORS allow r
 app.use( express.json() ); // Enable support for JSON-encode request bodies (formdata)
 
 
+// GraphQL server setup
+const expressGraphql  = require('express-graphql');
+const { buildSchema } = require('graphql');
+
+// GraphQL example using fake hardcoded 'students' DB
+//
+// const schema = buildSchema(`
+//   type Query {
+//     student(name: String): Student,
+//
+//     students(roundness: Int): [Student]
+//   },
+//
+//   type Student {
+//     name: String,
+//     roundness: Int
+//   }
+// `);
+//
+// const getStudent = (query) => {
+//   console.log( 'query:', query );
+//
+//   const students = [
+//     {
+//       name: 'Felix',
+//       roundness: 7,
+//     },
+//     {
+//       name: 'Deirdre',
+//       roundness: 7,
+//     },
+//     {
+//       name: 'Clarence',
+//       roundness: 9,
+//     },
+//   ];
+//
+//   return students.find( s => s.name === query.name );
+//
+// };
+//
+// const getStudents = (query) => {
+//   // Actually does the work of querying a database to return the students
+//   const students = [
+//     {
+//       name: 'Felix',
+//       roundness: 7,
+//     },
+//     {
+//       name: 'Deirdre',
+//       roundness: 7,
+//     },
+//     {
+//       name: 'Clarence',
+//       roundness: 9,
+//     },
+//   ];
+//
+//   if( query.roundness ){
+//     return students.filter( s => s.roundness === query.roundness );
+//   } else {
+//     return students;
+//   }
+//
+// };
+//
+// // Root resolver:
+// const rootResolver = {
+//   students: getStudents,
+//   student:  getStudent
+// };
+
+const getFlights = () => {
+
+  // Here getFlights() immediately returns a Promise object,
+  // which we pass a callback function into. This function takes two
+  // arguments, 'resolve' and 'reject'. These are themselves functions
+  // which you call, and pass data into, when the promise code either
+  // succeeds (resolve) or fails (reject).
+  // What are these resolve and reject functions? Turns out they're
+  // the functions passed into a .then() if one is chained to this
+  // promise (resolve), or into a .catch() chained to it (reject).
+  // In other words, if you had attached
+  //    .then( data => console.log(data) )
+  // to this returned promise, then when you call 'resolve(result);'
+  // from here, the .then() callback will get 'result' as its 'data'
+  // argument and log it out. MIND BLOWN.
+  //
+  // PS, it's only acceptable to return a Promise from our getFlights() resolver
+  // function because the GraphQL root resolver accepts actual data (like an
+  // array of objects) or a Promise, i.e. it expects this kind of return value
+  // as valid. And it's the GraphQL library that is calling .then() on this
+  // returned promise, somewhere internally, so it can finally forward the
+  // data to the frontend.
+
+  return new Promise( (resolve, reject) => {
+
+    db.collection('flights').find( {} ).toArray( (err, result) => {
+      if( err ){
+        // TODO: tell the browser about the error
+        //return console.log( 'Error:', err );
+        return reject( err );
+      }
+
+      // res.json( result );  // This worked as an Express response
+
+      // return result;  // This worked for our fake DB result
+      // ☝️
+      // Nope! This returns result from the DB query callback,
+      // NOT from the outer 'getFlights' functions as we need it to.
+      //
+      // WTF are we supposed to do? Promises to the rescue!
+
+        resolve( result );
+
+    }); // find()
+
+  }); // new Promise
+
+}; // getFlights()
+
+
+const schema = buildSchema(`
+  type Query {
+    flights: [Flight]
+  },
+  type Flight {
+    flight_number: String,
+    origin: String,
+    destination: String,
+    reservations: [Reservation]
+  },
+  type Reservation {
+    row: Int,
+    col: Int
+  }
+`);
+
+const rootResolver = {
+  flights: getFlights
+}
+
+app.use('/graphql', expressGraphql({
+  schema: schema,
+  rootValue: rootResolver,
+  graphiql: true
+}));
+
+
 const MongoClient = require('mongodb').MongoClient;
 let db; // global var to store the db connection object
 
@@ -118,6 +267,9 @@ app.post('/reservations', (req, res) => {
         col: req.body.col,
       });
 
+      // broadcast that a new reservation has been made
+
+
     }
 
   ); // updateOne()
@@ -125,4 +277,16 @@ app.post('/reservations', (req, res) => {
 }); // POST /reservations
 
 
-app.listen(PORT, () =>  console.log(`Server listening at http://localhost:${PORT} ...`) );
+const server = app.listen(PORT, () =>  console.log(`Server listening at http://localhost:${PORT} ...`) );
+
+const io = require('socket.io')( server );
+
+io.on('connection', socket => {
+
+  console.log('Got new connection!');
+
+  setInterval( () => {
+    socket.emit('ping', { msg: 'hi there!' });
+  }, 2000 );
+
+});
