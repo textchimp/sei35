@@ -279,6 +279,12 @@ app.post('/reservations', (req, res) => {
 
 const server = app.listen(PORT, () =>  console.log(`Server listening at http://localhost:${PORT} ...`) );
 
+
+// Export the running server, so we can require() this file in our test suite
+// as well as running the server directly from the command line
+module.exports = server;
+
+
 const io = require('socket.io')( server );
 
 io.on('connection', socket => {
