@@ -39,15 +39,57 @@
 // import axios from 'axios';
 import ajax from '@/lib/ajax';
 
+
+import apollo from 'vue-apollo';
+import gql from 'graphql-tag'
+
+
 import ReservationConfirm from '@/components/ReservationConfirm.vue';
 
 const FAKE_CURRENT_USER_ID = 16; // TODO: implement login system with knock/jwt
+
+import io from 'socket.io-client';
 
 export default {
   name: 'FlightDetails',
   props: ['id'],  // comes from the router,
   components: {
     ReservationConfirm  // FlightDetails will render this one as a child
+  },
+  // GraphQL Apollo integration:
+  apollo: {
+    // simple query: updates data (state) called 'flight'
+    // flight: gql`query {
+    //   flight {
+    //     flight_number
+    //     origin
+    //     destination
+    //   }
+    // }`,
+
+    // More specific query with variable passed in
+    flight: {
+      query: gql`query Flight($num: String!) {
+        flight(flight_number: $num) {
+          flight_number
+          origin
+          destination
+        }
+      }`,
+
+      variables(){
+        // Reactivity! When this prop changes, apollo will
+        // auto submit this graphql query again, since the
+        // following definition relies on it
+        return {
+          num: this.id
+        }
+      },
+      // NOPE! Can't use 'this', doesn't auto-update on change
+      // variables: {
+      //   num: this.id
+      // }
+    }
   },
   data(){
     return {
@@ -59,13 +101,29 @@ export default {
         row: 0,
         col: 0
       },
-      userID: FAKE_CURRENT_USER_ID
+      userID: FAKE_CURRENT_USER_ID,
+
+      socket: io('http://localhost:1337/') // Establish the websocket connection
+
     };
   },
 
   mounted(){
     this.getFlightDetails(); // Load initial data
     // window.setInterval( this.getFlightDetails, 2000 ); // Poll the server to show live reservation updates
+
+    // Listen for 'ping' websocket messages
+    this.socket.on('ping', data => {
+      console.log('PING', data);
+    });
+
+    // Listen for new reservation events
+    this.socket.on('new-reservation', res => {
+      console.log('reservation made', res);
+      // TODO: update state data
+    });
+
+
   },
 
   methods: {
