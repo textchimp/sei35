@@ -1,0 +1,23 @@
+{
+  "name": "backend-express-mongoose",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --bail --exit spec/",
+    "watch": "mocha --bail --watch spec/",
+    "seed": "node seed.js",
+    "start": "nodemon server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "express": "^4.17.1",
+    "mocha": "^7.1.1",
+    "mongoose": "^5.9.7",
+    "nodemon": "^2.0.2"
+  }
+}

@@ -1,0 +1,10 @@
+
+MERN MoMA MIGRATION
+
+1. Make NPM project, install dependencies
+2. Migrate the Rails Postgresql database to Mongoose
+   - start with Artists (then later Works and associations)
+   - create seed data
+3. Create Express server
+4. Test routes using TDD
+5. React frontend
