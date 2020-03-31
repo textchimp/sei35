@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 // Make a connection to the local Mongo DB
 // Note you don't need to specify the port,
 // it will use the default of 27017
-mongoose.connect('mongodb://localhost/mona', {
+mongoose.connect('mongodb://localhost/moma', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
@@ -55,7 +55,8 @@ const Artist = require('./db/models/artist');
 //
 // });
 
-Artist.collection.drop()
+// Artist.collection.drop()  - only works if collection already exists
+Artist.deleteMany()
 .then( () => {
   return Artist.create([
     {

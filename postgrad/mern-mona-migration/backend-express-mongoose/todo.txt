@@ -8,3 +8,10 @@ MERN MoMA MIGRATION
 3. Create Express server
 4. Test routes using TDD
 5. React frontend
+
+TODO:
+6. CRUD Create and Edit
+7. React frontend testing?
+8. Backend: create, update, delete routes, plus tests
+
+9. Works model, plus association to Artist
